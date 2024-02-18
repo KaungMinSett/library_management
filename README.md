@@ -1,1 +1,1 @@
-<h2>This is library management system using Django framework and Postgresql database</h2>
+<h4>This is library management system using Django framework and Postgresql database</h4>
