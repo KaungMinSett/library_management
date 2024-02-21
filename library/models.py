@@ -47,7 +47,7 @@ class Record(models.Model):
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     issue_date = models.DateField()
-    return_date = models.DateField(auto_now_add = False, auto_now = False, default=datetime.date.today() + datetime.timedelta(days=1))
+    return_date = models.DateField(null=True,blank=True)
     count = models.IntegerField(default=1)
     returned = models.BooleanField(default=False)
 

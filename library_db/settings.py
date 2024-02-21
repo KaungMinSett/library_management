@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'books'
 ]
 
 MIDDLEWARE = [
@@ -77,12 +78,12 @@ WSGI_APPLICATION = 'library_db.wsgi.application'
 
 DATABASES = {
     'default': {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
-        'NAME': 'library',
-        'USER': 'kms',
-        'PASSWORD': '1337',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'library_management',
+        'USER': 'admin',
+        'PASSWORD': 'password',
         'HOST': 'localhost',
-        'PORT': '5432',
+        'PORT': '',
     }
 }
 
