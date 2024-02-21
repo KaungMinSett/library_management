@@ -2,6 +2,7 @@ from django.db import models
 import datetime
 # Create your models here.
 from django.db import models
+from django.forms import ValidationError
 
 
     
@@ -47,10 +48,16 @@ class Record(models.Model):
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     issue_date = models.DateField()
-    return_date = models.DateField(auto_now_add = False, auto_now = False, default=datetime.date.today() + datetime.timedelta(days=1))
+    due_date = models.DateField(default=datetime.date.today() + datetime.timedelta(days=5))
     count = models.IntegerField(default=1)
     returned = models.BooleanField(default=False)
 
     def __str__(self):
         return self.book.title + " borrowed by " + self.customer.name
+    
+    def clean_fields(self, exclude=None):
+        super().clean_fields(exclude=exclude)
+        if self.due_date and self.due_date < self.issue_date:
+            raise ValidationError({'due_date': 'Due date cannot be in the past.'})
+
 

@@ -1,4 +1,5 @@
 from django.contrib import admin
+import datetime
 
 # Register your models here.
 from .models import Author, Book, Customer, Genre, Record
@@ -21,11 +22,21 @@ class CustomerAdmin(admin.ModelAdmin):
     ordering = ('name',)
 
 class RecordAdmin(admin.ModelAdmin):
-    list_display = ('book', 'customer', 'issue_date', 'return_date', 'count', 'returned')
+    list_display = ('book', 'customer', 'issue_date', 'due_date', 'count', 'returned')
     search_fields = ('book__title', 'customer__name')
     list_filter = ('book', 'customer', 'returned')
     date_hierarchy = 'issue_date'
     ordering = ('-issue_date','customer__name')
+    list_per_page = 15
+    list_max_show_all = 20
+
+    def save_model(self, request, obj, form, change):
+        if not obj.pk:
+            obj.issue_date = datetime.date.today()
+            obj.return_date = obj.issue_date + datetime.timedelta(days=5)
+           
+        super().save_model(request, obj, form, change)
+    
 
 
 class AuthorAdmin(admin.ModelAdmin):
