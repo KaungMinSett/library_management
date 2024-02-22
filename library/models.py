@@ -29,7 +29,7 @@ class Book(models.Model):
     genre = models.ManyToManyField(Genre)
     isbn = models.CharField(max_length=13, unique=True)
     count = models.IntegerField(default=1)
-
+    
     def __str__(self):
         return self.title
     

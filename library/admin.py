@@ -1,8 +1,11 @@
 from django.contrib import admin
-import datetime
+
 
 # Register your models here.
 from .models import Author, Book, Customer, Genre, Record
+
+admin.site.site_header = 'My Library'
+admin.site.index_title = 'Features area' 
 
 class BookAdmin(admin.ModelAdmin):
     list_display = ('title', 'author', 'publication_date', 'isbn', 'count', 'get_genres')
@@ -15,6 +18,8 @@ class BookAdmin(admin.ModelAdmin):
         return ', '.join([genre.name for genre in obj.genre.all()])
     
     get_genres.short_description = 'Genres'
+
+    
 
 class CustomerAdmin(admin.ModelAdmin):
     list_display = ('name', 'phone', 'address')
@@ -30,12 +35,21 @@ class RecordAdmin(admin.ModelAdmin):
     list_per_page = 15
     list_max_show_all = 20
 
-    def save_model(self, request, obj, form, change):
-        if not obj.pk:
-            obj.issue_date = datetime.date.today()
-            obj.return_date = obj.issue_date + datetime.timedelta(days=5)
-           
-        super().save_model(request, obj, form, change)
+    def toggle_book_status(self, request, queryset):
+        if queryset.filter(returned=False).exists():
+            updated_count = queryset.update(returned=True)
+        else:
+            updated_count = queryset.update(returned=False)
+        self.message_user(request, f'{updated_count} book(s) status has changed')
+
+        
+    toggle_book_status.short_description = 'change book status'
+
+   
+
+    actions = [toggle_book_status]
+
+    
     
 
 
