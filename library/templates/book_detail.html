@@ -1,8 +1,64 @@
 {% extends 'base.html' %}
-{% block title %}{{item.name}}{% endblock%}
+{% block title %}{{book.name}}{% endblock%}
 
 {% block content %}
-<div class="w-full">
-   <h1>{{ book.title}}</h1>
+<div class="grid grid-cols-4 gap-6 h-[100vh]">
+    <div class='col-span-2 grid justify-items-center items-center h-[70vh]'>
+        <img src="{{'https://fakeimg.pl/667x1000/cc6600' }}" class="rounded-xl w-[90%] h-[30vw]">
+    </div>
+    <div class="col-span-2 p-6 bg-gray-100 rounded-xl">
+        
+        <div class="my-4 mx-4 grid justify-items-start items-start h-[70vh]">
+            <div class='mx-5'>
+            <h1 class='mb-6 text-3xl font-bold'>{{book.title}}</h1>
+            <h3 class='mb-6 text-2xl font-semibold'>by {{book.author.name}}</h3>
+            {% if book.description %}
+            <p class='text-gray-700'>
+                {{book.description}}
+            </p>
+            {% endif %}
+                <h4 class="font-bold text-xl">
+                    {% with colors=["lime", "amber", "green", "cyan", "sky"] %}
+                        {% for genre in book.genre.all %}
+                            <span class="text-sky {{ colors[0] }} rounded-md text-xs">
+                                {{ genre.name }}
+                            </span>
+                        {% endfor %}
+                    {% endwith %}
+                </h4>
+                <p class="mt-2 mb-2 text-gray-600 text-sm">{{book.description}}
+                </p>
+                {% if book.count > 0 %}
+                <span class='text-sky bg-blue-500 rounded-lg text-small px-1 py-1 my-4'>Available <span class="text-white text-bold">{{book.count}} stock(s)</span></span>
+                {% else %}
+                <span class='text-sky bg-red-500 rounded-lg text-small px-1 py-1 my-4'>Unavailable</span>
+                {% endif%}
+            </div>
+           
+            {% comment %} <div class="mt-5">
+                <button type="button" class="inline-flex items-center rounded-md border border-transparent bg-gray-800 px-3 py-2 text-sm font-medium leading-4 text-white shadow-sm hover:bg-gray-900">Add to bucket</button>
+            </div> {% endcomment %}
+        </div>
+    </div>
 </div>
+{% comment %} <div class='mt-6 px-6 py-12 bg-gray-100 rounded-xl'>
+    <h2 class='mb-12 text-2xl text-center'>Related Items</h2>
+    <div class='grid grid-cols-3 gap-3'>
+        {% for item in related_items %}
+        <div>
+            <a href="{% url 'item:detail' item.id %}">
+                <div>
+                    {% if item.image %}
+                    <img src="{{item.image.url}}" class='rounded-t-xl'>
+                    {% endif %}
+                </div>
+                <div class="p-6 bg-white rounded-b-xl">
+                    <h2 class="text-2xl">{{ item.name }}</h2>
+                    <p class='text-gray-500'>Price {{ item.price }}</p>
+                </div>
+            </a>
+        </div>  
+        {% endfor %}
+    </div>
+</div> {% endcomment %}
 {% endblock%}
