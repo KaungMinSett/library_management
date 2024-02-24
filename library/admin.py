@@ -36,13 +36,13 @@ class RecordAdmin(admin.ModelAdmin):
     list_max_show_all = 20
 
     def toggle_book_status(self, request, queryset):
-        if queryset.filter(returned=False).exists():
-            updated_count = queryset.update(returned=True)
-        else:
-            updated_count = queryset.update(returned=False)
-        self.message_user(request, f'{updated_count} book(s) status has changed')
+        print(queryset)
+        for record in queryset:
+            record.returned = not record.returned
+            record.save()
+        self.message_user(request, f'${queryset.count()} book(s) status has changed')
 
-        
+
     toggle_book_status.short_description = 'change book status'
 
    

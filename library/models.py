@@ -29,6 +29,8 @@ class Book(models.Model):
     genre = models.ManyToManyField(Genre)
     isbn = models.CharField(max_length=13, unique=True)
     count = models.IntegerField(default=1)
+    image_url = models.ImageField(upload_to="item_images",blank=True,null=True)
+    description = models.TextField(blank=True,null=True)
     
     def __str__(self):
         return self.title
@@ -59,5 +61,16 @@ class Record(models.Model):
         super().clean_fields(exclude=exclude)
         if self.due_date and self.due_date < self.issue_date:
             raise ValidationError({'due_date': 'Due date cannot be in the past.'})
+        
+
+    def save(self, *args, **kwargs):
+        print("<<<<<< Record created")
+        if self.returned == True :
+            print("Returned ")
+            self.book.count += self.count  # Increment count when returned
+        else:
+            self.book.count -= self.count  # Decrement count when borrowed
+        self.book.save()  # Save the Book instance with updated count
+        super().save(*args, **kwargs)  # Call the original save method
 
 
