@@ -23,6 +23,8 @@ class Genre(models.Model):
 class Book(models.Model):
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=200)
+    description = models.TextField(blank=True,null=True)
+    image_url = models.ImageField(upload_to="media/books/",blank=True,null=True)
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
     publication_date = models.DateField()
     genre = models.ManyToManyField(Genre)
