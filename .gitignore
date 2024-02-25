@@ -3,5 +3,6 @@ __pycache__/
 *.py[cod]
 
 # Django stuff:
-/lib_env
 *.log
+
+/lib_env/
