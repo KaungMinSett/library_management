@@ -19,12 +19,12 @@ def book_detail(request, pk):
 def book_list(request,pg_no):
     template = loader.get_template('books.html')
     query = request.GET.get('query','')
-    genre = request.GET.get('genre',0)
+    genre_id = request.GET.get('genre_id',0)
     genres = Genre.objects.all();
     books = Book.objects.all()
 
-    if(genre):
-        books = books.filter(genre=genre)
+    if(genre_id):
+        books = books.filter(genre=int(genre_id))
     if(query):
         books = books.filter(Q(title__icontains=query)|Q(description__icontains=query)|Q(author__name__icontains=query))
 
@@ -34,7 +34,7 @@ def book_list(request,pg_no):
     else:
         books = pageObj.page(1)
 
-    return HttpResponse(template.render({'books':books,'genres':genres},request))
+    return HttpResponse(template.render({'books':books,'genres':genres,"query":query,"genre_id":int(genre_id)},request))
 
 
     
