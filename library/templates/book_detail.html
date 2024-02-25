@@ -2,34 +2,36 @@
 {% block title %}{{book.name}}{% endblock%}
 
 {% block content %}
+<div class='mb-4'>
+    <a href={%url 'library:book_list' 1 %} class='p-3 outline outline-gray-300 hover:outline-gray-600 rounded '>< back to home</a>
+</div>
 <div class="grid grid-cols-4 gap-6 h-[100vh]">
     <div class='col-span-2 grid justify-items-center items-center h-[70vh]'>
-        <img src="{{'https://fakeimg.pl/667x1000/cc6600' }}" class="rounded-xl w-[90%] h-[30vw]">
+        <img src="{{'https://fakeimg.pl/667x1000/cc6600' }}" class="rounded-xl w-[90%] h-[40vw]">
     </div>
-    <div class="col-span-2 p-6 bg-gray-100 rounded-xl">
+    <div class="col-span-2 p-6  rounded-xl">
         
-        <div class="my-4 mx-4 grid justify-items-start items-start h-[70vh]">
-            <div class='mx-5'>
-            <h1 class='mb-6 text-3xl font-bold'>{{book.title}}</h1>
-            <h3 class='mb-6 text-2xl font-semibold'>by {{book.author.name}}</h3>
-            {% if book.description %}
-            <p class='text-gray-700'>
-                {{book.description}}
-            </p>
-            {% endif %}
+        <div class="my-4 mx-4  grid justify-items-start items-center h-[70vh]">
+            <div class='mx-5 '>
+                <h1 class='mb-6 text-3xl font-bold'>{{book.title}}</h1>
+                <h3 class='mb-6 text-2xl font-semibold'>by {{book.author.name}} <span class="text-xs">published_@ {{book.publication_date}}</span></h3>
+                {% if book.description %}
+                <p class='text-gray-700 my-3'>
+                    {{book.description}}
+                </p>
+                {% endif %}
                 <h4 class="font-bold text-xl">
-                    {% with colors=["lime", "amber", "green", "cyan", "sky"] %}
+                
                         {% for genre in book.genre.all %}
-                            <span class="text-sky {{ colors[0] }} rounded-md text-xs">
+                            <span class="text-sky bg-cyan-400 rounded-md text-small mx-1">
                                 {{ genre.name }}
                             </span>
                         {% endfor %}
-                    {% endwith %}
+                    
                 </h4>
-                <p class="mt-2 mb-2 text-gray-600 text-sm">{{book.description}}
-                </p>
+                
                 {% if book.count > 0 %}
-                <span class='text-sky bg-blue-500 rounded-lg text-small px-1 py-1 my-4'>Available <span class="text-white text-bold">{{book.count}} stock(s)</span></span>
+                <span class='text-sky rounded-lg text-small px-1 py-1 my-4 font-bold'>Available Quantity : <span class="text-green-600 font-bold">{{book.count}} stock(s)</span></span>
                 {% else %}
                 <span class='text-sky bg-red-500 rounded-lg text-small px-1 py-1 my-4'>Unavailable</span>
                 {% endif%}
@@ -61,4 +63,18 @@
         {% endfor %}
     </div>
 </div> {% endcomment %}
+<script>
+    let colors=["lime", "amber", "green", "cyan", "sky"];
+    function getRandomElement(arr) {
+        // Generate a random index within the array length
+        const randomIndex = Math.floor(Math.random() * arr.length);
+        
+        // Return the element at the random index
+        return arr[randomIndex];
+    }
+    
+    // Get a random element from the array
+    const bgColor = getRandomElement(colors);
+    
+</script>
 {% endblock%}

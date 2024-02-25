@@ -1,12 +1,14 @@
 from django.shortcuts import render
 from django.template import loader
-from .models import Book
+from .models import Book,Genre
 
 # Create your views here.
 from django.shortcuts import render
 from .models import Book
 from django.http import HttpResponse
 from django.core.paginator import Paginator
+from django.db.models import Q
+
 
 def book_detail(request, pk):
     book = Book.objects.get(id=pk)
@@ -16,11 +18,26 @@ def book_detail(request, pk):
 
 def book_list(request,pg_no):
     template = loader.get_template('books.html')
+    query = request.GET.get('query','')
+    genre = request.GET.get('genre',0)
+    genres = Genre.objects.all();
     books = Book.objects.all()
+
+    if(genre):
+        books = books.filter(genre=genre)
+    if(query):
+        books = books.filter(Q(title__icontains=query)|Q(description__icontains=query)|Q(author__name__icontains=query))
+
     pageObj = Paginator(books,15)
     if(pg_no):
         books = pageObj.page(pg_no)
     else:
         books = pageObj.page(1)
 
-    return HttpResponse(template.render({'books':books},request))
+    return HttpResponse(template.render({'books':books,'genres':genres},request))
+
+
+    
+
+    
+    # return HttpResponse(template.render({"books":books,"query":query,'genres':genres,'genre_id':int(genre_id)},request))

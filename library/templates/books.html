@@ -2,8 +2,28 @@
 {% block title %}{{item.name}}{% endblock%}
 
 {% block content %}
-<h1 class='font-bold text-lg'>Available Books</h1>
+
+<h1 class='font-bold text-lg  text-center'>Available Books</h1>
+
+<div>
+  <p class='font-semibold'>Genres</p>
+  <ul>
+      {% for genre in genres %}
+          {% if genre.name == selected_genre %} 
+              <li class="py-2 px-2 rounded-xl bg-gray-200">
+                  <a href="{% url 'library:book_list' 1 %}?query={{query}}&genre={{genre.id}}">{{genre.name}}</a>
+              </li>
+          {% else %}
+              <li class="py-2 px-2 rounded-xl">
+                  <a href="{% url 'library:book_list' 1 %}?query={{query}}&genre={{genre.id}}">{{genre.name}}</a>
+              </li>
+          {% endif %}
+        
+      {% endfor%}
+  </ul>
+</div>
 <div class='my-3 grid sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4'>
+ 
     
 {% for book in books.object_list %}
 <a class="max-w-lg border border-indigo-300 rounded-2xl hover:shadow-xl hover:shadow-indigo-50 flex flex-col items-center"
@@ -22,7 +42,7 @@
             </p>
             <span class='text-sky bg-lime-500 rounded-lg text-xs'>Available</span>
         </div>
-       
+        
         {% comment %} <div class="mt-5">
             <button type="button" class="inline-flex items-center rounded-md border border-transparent bg-gray-800 px-3 py-2 text-sm font-medium leading-4 text-white shadow-sm hover:bg-gray-900">Add to bucket</button>
         </div> {% endcomment %}
