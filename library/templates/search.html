@@ -3,19 +3,7 @@
 
 {% block content %}
 
-<div class="my-3 h-[70vh] justify-items-start items-center grid grid-cols-2 bg-gradient-to-r from-cyan-500 to-cyan-100 rounded-lg shadow-lg">
- <div class='col-span-1'>
-  {% load static %}
-  <img src="{% static 'library/lib_banner.png' %}" class="rounded-xl w-[90%] h-[30vw]">
- </div>
- <div class='col-span-1'>
-  <div>
-    <h2 class='text-4xl font-bold animate-typing my-4'>A Place for Readers<h2>
-    <p class='max-w-[250px] text-white font-bold'>Visit us today and embark 
-      on your next literary adventure</p>
-  </div>
- </div>
-</div>
+
 <div class='grid grid-cols-6 gap-5'>
   <div class='col-span-5'>
     <form method="GET" action="{% url 'library:search' 1 %}" class='flex gap-5'>
@@ -46,7 +34,7 @@
 </div>
   
 </div>
-<h1 class='font-bold text-start text-3xl'>Popular Books</h1>
+<h1 class='font-bold text-start text-3xl'>{{title}}</h1>
 
 <div class='my-3 flex flex-row gap-4 overflow-x-scroll'
 style='scrollbar-width:none'
@@ -54,7 +42,7 @@ style='scrollbar-width:none'
 >
 
     
-{% for book in popular_books %}
+{% for book in books.object_list %}
 <a class="min-w-[60vw] sm:min-w-[35vw] md:min-w-[30vw] lg:min-w-[20vw] border border-indigo-300 rounded-2xl hover:shadow-xl hover:shadow-indigo-80 flex flex-col items-center"
     href={%url 'library:book_detail' book.id %}>
     <img src={{'https://fakeimg.pl/667x1000/cc6600'}} class="shadow rounded-lg overflow-hidden  w-full max-h-[350px]" >
@@ -91,7 +79,7 @@ style='scrollbar-width:none'
 >
 
     
-{% for book in latest_books %}
+{% for book in books.object_list %}
 <a class="min-w-[60vw] sm:min-w-[35vw] md:min-w-[30vw] lg:min-w-[20vw] border border-indigo-300 rounded-2xl hover:shadow-xl hover:shadow-indigo-80 flex flex-col items-center"
     href={%url 'library:book_detail' book.id %}>
     <img src={{'https://fakeimg.pl/667x1000/cc6600'}} class="shadow rounded-lg overflow-hidden  w-full max-h-[350px]" >

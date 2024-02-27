@@ -8,6 +8,10 @@ from .models import Book
 from django.http import HttpResponse
 from django.core.paginator import Paginator
 from django.db.models import Q
+from django.db.models import Max,Count
+from django.db.models import Max, F
+from django.db.models.functions import Cast,TruncDate
+
 
 
 def book_detail(request, pk):
@@ -16,8 +20,8 @@ def book_detail(request, pk):
     return render(request, 'book_detail.html', {'book': book,"colors":['amber','sky','cyan','yellow','green'],
 })
 
-def book_list(request,pg_no):
-    template = loader.get_template('books.html')
+def search(request,pg_no):
+    template = loader.get_template('search.html')
     query = request.GET.get('query','')
     genre_id = request.GET.get('genre_id',0)
     genres = Genre.objects.all();
@@ -34,7 +38,23 @@ def book_list(request,pg_no):
     else:
         books = pageObj.page(1)
 
-    return HttpResponse(template.render({'books':books,'genres':genres,"query":query,"genre_id":int(genre_id)},request))
+    return HttpResponse(template.render({'title':'Search results for : '+query,'books':books,'genres':genres,"query":query,"genre_id":int(genre_id)},request))
+
+
+    
+
+def index(request):
+    template = loader.get_template('books.html')#load template
+    query = request.GET.get('query','')
+    genre_id = request.GET.get('genre_id',0)
+    genres = Genre.objects.all();
+
+    popular_books = Book.objects.annotate(num_borrowed=Count('record')).order_by('-num_borrowed')[:10]
+    latest_books = Book.objects.order_by('-publication_date')[:10]
+    print(popular_books)
+    return HttpResponse(template.render({'latest_books':latest_books,
+                                         'popular_books':popular_books,
+                                         'genres':genres,"query":query,"genre_id":int(genre_id)},request))
 
 
     
