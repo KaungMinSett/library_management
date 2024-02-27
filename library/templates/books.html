@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %}{{item.name}}{% endblock%}
+{% block title %}{{'Home'}}{% endblock%}
 
 {% block content %}
 
@@ -16,7 +16,7 @@
   </div>
  </div>
 </div>
-<div class='grid grid-cols-6 gap-5'>
+<div class='grid grid-cols-6 gap-5 mt-4'>
   <div class='col-span-5'>
     <form method="GET" action="{% url 'library:search' 1 %}" class='flex gap-5'>
       <input name='query' class="flex-1 px-6 py-4 border rounded-xl" type='text' value="{{ query }}" placeholder="Find a book name , author or ..." />
@@ -46,7 +46,9 @@
 </div>
   
 </div>
-<h1 class='font-bold text-start text-3xl'>Popular Books</h1>
+
+
+<h1 class='mt-4 font-bold text-start text-3xl'>Popular Books</h1>
 
 <div class='my-3 flex flex-row gap-4 overflow-x-scroll'
 style='scrollbar-width:none'
@@ -55,21 +57,25 @@ style='scrollbar-width:none'
 
     
 {% for book in popular_books %}
-<a class="min-w-[60vw] sm:min-w-[35vw] md:min-w-[30vw] lg:min-w-[20vw] border border-indigo-300 rounded-2xl hover:shadow-xl hover:shadow-indigo-80 flex flex-col items-center"
+<a class="min-w-[60vw] sm:min-w-[35vw] md:min-w-[30vw] lg:min-w-[20vw] border border-indigo-300 rounded-2xl hover:shadow-xl hover:shadow-indigo-80 flex flex-col items-start"
     href={%url 'library:book_detail' book.id %}>
     <img src={{'https://fakeimg.pl/667x1000/cc6600'}} class="shadow rounded-lg overflow-hidden  w-full max-h-[350px]" >
     <div class="my-4 mx-4 ">
-        <div class=''>
-            <h4 class="font-bold text-xl">{{book.title}}  
-                {% for gen in book.genre.object_list %}
-                <span class='text-sky bg-amber-500 rounded-lg text-xs'>
-                    {{gen}}
-                </span>
-                {% endfor %}
-            </h4>
-            <p class="mt-2 text-gray-600 text-sm">{{book.description}}
-            </p>
-            
+        <div class='mx-5 '>
+          <h1 class='mb-6 text-2xl font-bold'>{{book.title}}</h1>
+          <h3 class='mb-6 text-xl text-slate-500 font-semibold'>by <span class='text-black'>{{book.author.name}}</span> </h3>
+          <h4 class='mb-6 text-lg text-slate-500 font-semibold'> Published_@ {{book.publication_date}}></h4>
+          <h4 class="font-bold text-xl">
+          
+                  {% for genre in book.genre.all %}
+                      <span class="text-sky bg-cyan-200 rounded-md text-small mx-1">
+                          {{ genre.name }}
+                      </span>
+                  {% endfor %}
+              
+          </h4>
+          
+          
         </div>
         
         {% comment %} <div class="mt-5">
@@ -92,26 +98,28 @@ style='scrollbar-width:none'
 
     
 {% for book in latest_books %}
-<a class="min-w-[60vw] sm:min-w-[35vw] md:min-w-[30vw] lg:min-w-[20vw] border border-indigo-300 rounded-2xl hover:shadow-xl hover:shadow-indigo-80 flex flex-col items-center"
+<a class="min-w-[60vw] sm:min-w-[35vw] md:min-w-[30vw] lg:min-w-[20vw] border border-indigo-300 rounded-2xl hover:shadow-xl hover:shadow-indigo-80 flex flex-col items-start"
     href={%url 'library:book_detail' book.id %}>
     <img src={{'https://fakeimg.pl/667x1000/cc6600'}} class="shadow rounded-lg overflow-hidden  w-full max-h-[350px]" >
     <div class="my-4 mx-4 ">
-        <div class=''>
-            <h4 class="font-bold text-xl">{{book.title}}  
-                {% for gen in book.genre.object_list %}
-                <span class='text-sky bg-amber-500 rounded-lg text-xs'>
-                    {{gen}}
-                </span>
-                {% endfor %}
-            </h4>
-            <p class="mt-2 text-gray-600 text-sm">{{book.description}}
-            </p>
-            
-        </div>
         
-        {% comment %} <div class="mt-5">
-            <button type="button" class="inline-flex items-center rounded-md border border-transparent bg-gray-800 px-3 py-2 text-sm font-medium leading-4 text-white shadow-sm hover:bg-gray-900">Add to bucket</button>
-        </div> {% endcomment %}
+        <div class='mx-5 '>
+          <h1 class='mb-6 text-2xl font-bold'>{{book.title}}</h1>
+          <h3 class='mb-6 text-xl text-slate-500 font-semibold'>by <span class='text-black'>{{book.author.name}}</span> </h3>
+          <h4 class='mb-6 text-lg text-slate-500 font-semibold'> Published_@ {{book.publication_date}}></h4>
+          <h4 class="font-bold text-xl">
+          
+                  {% for genre in book.genre.all %}
+                      <span class="text-black bg-cyan-200 rounded-md text-small mx-1">
+                          {{ genre.name }}
+                      </span>
+                  {% endfor %}
+              
+          </h4>
+          
+          
+         </div>
+       
     </div>
 </a>
    
