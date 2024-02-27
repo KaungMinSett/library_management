@@ -16,19 +16,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
-<<<<<<< HEAD
-=======
 from library import urls
->>>>>>> list_and_detail
 
 from django.conf import settings
 from django.conf.urls.static import static
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-<<<<<<< HEAD
-    path('books/',include('books.urls',namespace='books'))
-]
-=======
-    path("books/",include("library.urls",namespace='books'))
-]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
->>>>>>> list_and_detail
+    path("books/",include("library.urls",namespace='books')),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
