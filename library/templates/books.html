@@ -100,11 +100,16 @@ style='scrollbar-width:none'
 {% for book in latest_books %}
 <a class="min-w-[60vw] sm:min-w-[35vw] md:min-w-[30vw] lg:min-w-[20vw] border border-indigo-300 rounded-2xl hover:shadow-xl hover:shadow-indigo-80 flex flex-col items-start"
     href={%url 'library:book_detail' book.id %}>
+    {% if book.image_url %}
+    <img src="{{book.image_url.url}}" class="shadow rounded-lg overflow-hidden  w-full max-h-[350px]" >
+    {% else %}
     <img src={{'https://fakeimg.pl/667x1000/cc6600'}} class="shadow rounded-lg overflow-hidden  w-full max-h-[350px]" >
+
+    {% endif %}
     <div class="my-4 mx-4 ">
         
         <div class='mx-5 '>
-          <h1 class='mb-6 text-2xl font-bold'>{{book.title}}</h1>
+          <h1 class='mb-6 text-2xl font-bold'>{{book.title}}{{MEDIA_ROOT}}</h1>
           <h3 class='mb-6 text-xl text-slate-500 font-semibold'>by <span class='text-black'>{{book.author.name}}</span> </h3>
           <h4 class='mb-6 text-lg text-slate-500 font-semibold'> Published_@ {{book.publication_date}}></h4>
           <h4 class="font-bold text-xl">

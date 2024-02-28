@@ -7,7 +7,11 @@
 </div>
 <div class="grid grid-cols-4 gap-6 h-[100vh]">
     <div class='col-span-2 grid justify-items-center items-center h-[70vh]'>
-        <img src="{{'https://fakeimg.pl/667x1000/cc6600' }}" class="rounded-xl w-[90%] h-[40vw]">
+        {% if book.image_url %}
+        <img src="{{book.image_url.url}}" class="rounded-xl w-[70%] h-[40vw]">
+        {%else%}
+        <img src="{{'https://fakeimg.pl/667x1000/cc6600' }}" class="rounded-xl w-[70%] h-[40vw]">
+        {% endif %}
     </div>
     <div class="col-span-2 p-6  rounded-xl">
         

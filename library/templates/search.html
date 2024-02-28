@@ -42,7 +42,12 @@
     {% for book in books.object_list %}
     <a class="max-w-lg border border-indigo-300 rounded-2xl hover:shadow-xl hover:shadow-indigo-80 flex flex-col items-start"
         href={%url 'library:book_detail' book.id %}>
+        {% if book.image_url %}
+        {% comment %} book.image_url.url '[url].url'is need to display images in media url {% endcomment %}
+        <img src={{book.image_url.url}} class="shadow rounded-lg overflow-hidden w-full max-h-[350px]" > 
+        {% else %}
         <img src={{'https://fakeimg.pl/667x1000/cc6600'}} class="shadow rounded-lg overflow-hidden w-full max-h-[350px]" >
+        {% endif %}
         <div class="my-4 mx-4 ">
             <div class='mx-5'>
                 <h4 class="font-bold text-xl">{{book.title}}  
