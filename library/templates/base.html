@@ -6,7 +6,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
     <title>{% block title %}{% endblock %} | LMS</title>
-    
+    <style>
+        /* Custom CSS for the animation */
+        @keyframes grow {
+            0% {
+                transform: scale(1);
+              }
+              50% {
+                transform: scale(1.2);
+              }
+              55% {
+                transform: scale(0.9);
+              }
+              70% {
+                transform: scale(1.1);
+              }
+              85% {
+                transform: scale(0.95);
+              }
+              100% {
+                transform: scale(1);
+              }
+        }
+        
+      
+        /* Apply animation to the text */
+        .grow-animate {
+          animation: grow 1s ease-out;
+        }
+        .text-shadow {
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+          }
+      </style>
 </head>
 <body
     style="scrollbar-width:none;" !important

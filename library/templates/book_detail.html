@@ -24,10 +24,10 @@
                     {{book.description}}
                 </p>
                 {% endif %}
-                <h4 class="font-bold text-xl">
+                <h4 class="font-bold text-xl mb-4 ">
                 
                         {% for genre in book.genre.all %}
-                            <span class="text-sky bg-cyan-400 rounded-md text-small mx-1">
+                            <span class="text-sky bg-cyan-400 rounded-md text-small mr-2 px-1">
                                 {{ genre.name }}
                             </span>
                         {% endfor %}
@@ -37,7 +37,7 @@
                 {% if book.count > 0 %}
                 <span class='text-sky rounded-lg text-small px-1 py-1 my-4 font-bold'>Available Quantity : <span class="text-green-600 font-bold">{{book.count}} stock(s)</span></span>
                 {% else %}
-                <span class='text-sky bg-red-500 rounded-lg text-small px-1 py-1 my-4'>Unavailable</span>
+                <span class='text-sky bg-red-500 rounded-lg text-small px-1 py-1 '>Unavailable</span>
                 {% endif%}
             </div>
            
