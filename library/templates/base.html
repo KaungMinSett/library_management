@@ -8,6 +8,7 @@
     <title>{% block title %}{% endblock %} | BookStack</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel= "stylesheet" href= "https://maxst.icons8.com/vue-static/landings/line-awesome/font-awesome-line-awesome/css/all.min.css" >
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
     <style>
         * {
@@ -68,7 +69,7 @@
      
 </head>
 <body
-    style="scrollbar-width:none;" !important
+    style="scrollbar-width:none;" 
 >
     <nav class="px-6 py-6 flex justify-between items-center border-b border-gray-200">
         <a href="{%url 'library:index'  %}" class="flex flex-row justify-items-center items-center text-3xl font-semibold grow-animate">
@@ -77,8 +78,9 @@
             {% load static %}
             <img src="{% static 'stack.svg' %}" class="w-[70px] h-[70px] grow-animate">
         </a>
-        <div class="space-x-6">
-           
+        <div class="space-x-6 flex justify-center items-center">
+           <p class='text-2xl text-cyan-400 font-bold'><span class='mr-3'>&#9743;</span>+959-266-947-233</p>
+           <p class='text-2xl text-cyan-400 font-bold'>&#x1F4CD;Parami Road, Yangon, Myanmar</p>
         </div>
     </nav>
     <div class="px-6 py-6">

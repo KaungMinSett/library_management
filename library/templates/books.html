@@ -14,6 +14,13 @@
     <p class='max-w-[250px] text-white font-bold grow-animate'>Visit us today and embark 
       on your next literary adventure</p>
   </div>
+  <div>
+    {% for book in latest_books %}
+    <div>
+      {{book.title}}
+    </div>
+    {% endfor%}
+  </div>
  </div>
 </div>
 <div class='grid grid-cols-8 gap-5 my-8 items-center'>
@@ -41,24 +48,24 @@
 </div>
 
 {% if popular_books %}
-<h1 class='mt-4 font-bold text-start text-3xl'>Popular Books</h1>
+<h1 class='mt-8 font-bold text-start text-3xl'>Popular Books</h1>
 
-<div class='my-3 flex flex-row gap-4 overflow-x-scroll'
+<div class='my-8 flex flex-row gap-4 overflow-x-scroll'
 style='scrollbar-width:none'
 
 >
 
     
 {% for book in popular_books %}
-<a class="min-w-[60vw] sm:min-w-[30vw] md:min-w-[26vw] lg:min-w-[16vw] border border-indigo-300 rounded-2xl hover:shadow-xl hover:shadow-indigo-80 flex flex-col items-start appear-animate"
+<a class="min-w-[60vw] sm:min-w-[30vw] md:min-w-[26vw] lg:min-w-[16vw] border border-indigo-300 rounded-2xl hover:shadow-xl hover:shadow-indigo-80 flex flex-col items-start appear-animate max-h-[500px]"
     href={%url 'library:book_detail' book.id %}>
-    <img src={{'https://fakeimg.pl/667x1000/cc6600'}} class="shadow rounded-lg overflow-hidden  w-full max-h-[330px]" >
+    <img src={{'https://fakeimg.pl/667x1000/cc6600'}} class="shadow rounded-lg overflow-hidden  w-full max-h-[380px]" >
     <div class="my-4">
-        <div class='mx-5 '>
-          <h1 class='mb-1 text-2xl font-bold'>{{book.title}}</h1>
-          <h3 class='mb-1 text-xl text-slate-500 font-semibold'>by <span class='text-black'>{{book.author.name}}</span> </h3>
-          <h4 class='mb-1 text-lg text-slate-500 font-semibold'>{{book.publication_date}}</h4>
-          <h4 class="mb-4 font-bold text-xl">
+        <div class='mx-2'>
+          <h1 class='mb-1 text-xl font-bold'>{{book.title}}</h1>
+          <h3 class='mb-1 text-lg text-slate-500 font-semibold'>by <span class='text-black'>{{book.author.name}}</span> </h3>
+          <h4 class='mb-1 text-small text-slate-500 font-semibold'>{{book.publication_date}}</h4>
+          <h4 class="mb-2 font-bold text-xs">
           
                   {% for genre in book.genre.all %}
                       <span class="text-sky bg-cyan-200 rounded-md text-xs px-1 mx-1">
@@ -70,10 +77,6 @@ style='scrollbar-width:none'
           
           
         </div>
-        
-        {% comment %} <div class="mt-5">
-            <button type="button" class="inline-flex items-center rounded-md border border-transparent bg-gray-800 px-3 py-2 text-sm font-medium leading-4 text-white shadow-sm hover:bg-gray-900">Add to bucket</button>
-        </div> {% endcomment %}
     </div>
 </a>
    
@@ -82,24 +85,24 @@ style='scrollbar-width:none'
 </div>
 {% endif %}
 {%if fantasy_adventure %}
-<h1 class='mt-4 font-bold text-start text-3xl'>Fantasy & Adventure</h1>
+<h1 class='mt-8 font-bold text-start text-3xl'>Fantasy & Adventure</h1>
 
-<div class='my-3 flex flex-row gap-4 overflow-x-scroll'
+<div class='my-8 flex flex-row gap-4 overflow-x-scroll'
 style='scrollbar-width:none'
 
 >
 
     
 {% for book in fantasy_adventure %}
-<a class="min-w-[60vw] sm:min-w-[30vw] md:min-w-[26vw] lg:min-w-[16vw] border border-indigo-300 rounded-2xl hover:shadow-xl hover:shadow-indigo-80 flex flex-col items-start"
+<a class="min-w-[60vw] sm:min-w-[30vw] md:min-w-[26vw] lg:min-w-[16vw] border border-indigo-300 rounded-2xl hover:shadow-xl hover:shadow-indigo-80 flex flex-col items-start appear-animate max-h-[500px]"
     href={%url 'library:book_detail' book.id %}>
-    <img src={{'https://fakeimg.pl/667x1000/cc6600'}} class="shadow rounded-lg overflow-hidden  w-full max-h-[270px]" >
-    <div class="my-4 mx-4 ">
-        <div class='mx-5 '>
-          <h1 class='mb-4 text-2xl font-bold'>{{book.title}}</h1>
-          <h3 class='mb-4 text-xl text-slate-500 font-semibold'>by <span class='text-black'>{{book.author.name}}</span> </h3>
-          <h4 class='mb-4 text-lg text-slate-500 font-semibold'>{{book.publication_date}}</h4>
-          <h4 class="font-bold text-xl">
+    <img src={{'https://fakeimg.pl/667x1000/cc6600'}} class="shadow rounded-lg overflow-hidden  w-full max-h-[380px]" >
+    <div class="my-4">
+        <div class='mx-2'>
+          <h1 class='mb-1 text-xl font-bold'>{{book.title}}</h1>
+          <h3 class='mb-1 text-lg text-slate-500 font-semibold'>by <span class='text-black'>{{book.author.name}}</span> </h3>
+          <h4 class='mb-1 text-small text-slate-500 font-semibold'>{{book.publication_date}}</h4>
+          <h4 class="mb-2 font-bold text-xs">
           
                   {% for genre in book.genre.all %}
                       <span class="text-sky bg-cyan-200 rounded-md text-xs px-1 mx-1">
@@ -111,10 +114,6 @@ style='scrollbar-width:none'
           
           
         </div>
-        
-        {% comment %} <div class="mt-5">
-            <button type="button" class="inline-flex items-center rounded-md border border-transparent bg-gray-800 px-3 py-2 text-sm font-medium leading-4 text-white shadow-sm hover:bg-gray-900">Add to bucket</button>
-        </div> {% endcomment %}
     </div>
 </a>
    
@@ -124,51 +123,19 @@ style='scrollbar-width:none'
 {% endif %}
 {% if action_drama %}
 
-<h1 class='mt-4 font-bold text-start text-3xl'>Action & Drama</h1>
-<div class='my-3 flex flex-row gap-4 overflow-x-scroll' style='scrollbar-width:none'>
+<h1 class='mt-8 font-bold text-start text-3xl'>Action & Drama</h1>
+<div class='my-8 flex flex-row gap-4 overflow-x-scroll' style='scrollbar-width:none'>
 
   {% for book in action_drama %}
-  <a class="min-w-[60vw] sm:min-w-[30vw] md:min-w-[26vw] lg:min-w-[16vw] border border-indigo-300 rounded-2xl hover:shadow-xl hover:shadow-indigo-80 flex flex-col items-start book-card"
-      href={%url 'library:book_detail' book.id %}>
-      <img src={{'https://fakeimg.pl/667x1000/cc6600'}} class="shadow rounded-lg overflow-hidden  w-full max-h-[270px]" >
-      <div class="my-4 mx-4 ">
-          <div class='mx-5 '>
-            <h1 class='mb-4 text-2xl font-bold'>{{book.title}}</h1>
-            <h3 class='mb-4 text-xl text-slate-500 font-semibold'>by <span class='text-black'>{{book.author.name}}</span> </h3>
-            <h4 class='mb-4 text-lg text-slate-500 font-semibold'>{{book.publication_date}}</h4>
-            <h4 class="font-bold text-xl">
-                {% for genre in book.genre.all %}
-                    <span class="text-sky bg-cyan-200 rounded-md text-xs px-1 mx-1">
-                        {{ genre.name }}
-                    </span>
-                {% endfor %}
-            </h4>
-          </div>
-      </div>
-  </a>
-  {% endfor %}
-  
-  </div>
-{% endif %}
-{% if mystery_thriller %}
-<h1 class='mt-4 font-bold text-start text-3xl'>Mystery & Thriller</h1>
-
-<div class='my-3 flex flex-row gap-4 overflow-x-scroll'
-style='scrollbar-width:none'
-
->
-
-    
-{% for book in mystery_thriller %}
-<a class="min-w-[60vw] sm:min-w-[30vw] md:min-w-[26vw] lg:min-w-[16vw] border border-indigo-300 rounded-2xl hover:shadow-xl hover:shadow-indigo-80 flex flex-col items-start"
+  <a class="min-w-[60vw] sm:min-w-[30vw] md:min-w-[26vw] lg:min-w-[16vw] border border-indigo-300 rounded-2xl hover:shadow-xl hover:shadow-indigo-80 flex flex-col items-start appear-animate max-h-[500px]"
     href={%url 'library:book_detail' book.id %}>
-    <img src={{'https://fakeimg.pl/667x1000/cc6600'}} class="shadow rounded-lg overflow-hidden  w-full max-h-[400px]" >
-    <div class="my-4 mx-4 ">
-        <div class='mx-5 '>
-          <h1 class='mb-2 text-2xl font-bold'>{{book.title}}</h1>
-          <h3 class='mb-2 text-xl text-slate-500 font-semibold'>by <span class='text-black'>{{book.author.name}}</span> </h3>
-          <h4 class='mb-2 text-lg text-slate-500 font-semibold'>{{book.publication_date}}</h4>
-          <h4 class="font-bold text-xl">
+    <img src={{'https://fakeimg.pl/667x1000/cc6600'}} class="shadow rounded-lg overflow-hidden  w-full max-h-[380px]" >
+    <div class="my-4">
+        <div class='mx-2'>
+          <h1 class='mb-1 text-xl font-bold'>{{book.title}}</h1>
+          <h3 class='mb-1 text-lg text-slate-500 font-semibold'>by <span class='text-black'>{{book.author.name}}</span> </h3>
+          <h4 class='mb-1 text-small text-slate-500 font-semibold'>{{book.publication_date}}</h4>
+          <h4 class="mb-2 font-bold text-xs">
           
                   {% for genre in book.genre.all %}
                       <span class="text-sky bg-cyan-200 rounded-md text-xs px-1 mx-1">
@@ -180,18 +147,47 @@ style='scrollbar-width:none'
           
           
         </div>
-        
-        {% comment %} <div class="mt-5">
-            <button type="button" class="inline-flex items-center rounded-md border border-transparent bg-gray-800 px-3 py-2 text-sm font-medium leading-4 text-white shadow-sm hover:bg-gray-900">Add to bucket</button>
-        </div> {% endcomment %}
     </div>
 </a>
-   
+  {% endfor %}
+  
+  </div>
+{% endif %}
+{% if mystery_thriller %}
+<h1 class='mt-8 font-bold text-start text-3xl'>Mystery & Thriller</h1>
+
+<div class='my-8 flex flex-row gap-4 overflow-x-scroll'
+style='scrollbar-width:none'
+
+>
+
+    
+{% for book in mystery_thriller %}
+<a class="min-w-[60vw] sm:min-w-[30vw] md:min-w-[26vw] lg:min-w-[16vw] border border-indigo-300 rounded-2xl hover:shadow-xl hover:shadow-indigo-80 flex flex-col items-start appear-animate max-h-[500px]"
+    href={%url 'library:book_detail' book.id %}>
+    <img src={{'https://fakeimg.pl/667x1000/cc6600'}} class="shadow rounded-lg overflow-hidden  w-full max-h-[380px]" >
+    <div class="my-4">
+        <div class='mx-2'>
+          <h1 class='mb-1 text-xl font-bold'>{{book.title}}</h1>
+          <h3 class='mb-1 text-lg text-slate-500 font-semibold'>by <span class='text-black'>{{book.author.name}}</span> </h3>
+          <h4 class='mb-1 text-small text-slate-500 font-semibold'>{{book.publication_date}}</h4>
+          <h4 class="mb-2 font-bold text-xs">
+          
+                  {% for genre in book.genre.all %}
+                      <span class="text-sky bg-cyan-200 rounded-md text-xs px-1 mx-1">
+                          {{ genre.name }}
+                      </span>
+                  {% endfor %}
+              
+          </h4>
+          
+          
+        </div>
+    </div>
+</a>
 {% endfor%}
 
 </div>
 {% endif %}
-
-
 
 {% endblock %}
