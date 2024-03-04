@@ -18,7 +18,7 @@ def book_detail(request, pk):
     book = Book.objects.get(id=pk)
     unreturned_count = Record.objects.filter(book=pk,returned=False).count()
     book.stock = book.count-unreturned_count
-    return render(request, 'book_detail.html', {'book': book,"colors":['amber','sky','cyan','yellow','green'],
+    return render(request, 'book_detail.html', {'book': book,
 })
 
 def search(request,pg_no):
