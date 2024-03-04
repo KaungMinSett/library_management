@@ -62,13 +62,13 @@ style='scrollbar-width:none'
     <img src={{'https://fakeimg.pl/667x1000/cc6600'}} class="shadow rounded-lg overflow-hidden  w-full max-h-[350px]" >
     <div class="my-4 mx-4 ">
         <div class='mx-5 '>
-          <h1 class='mb-6 text-2xl font-bold'>{{book.title}}</h1>
-          <h3 class='mb-6 text-xl text-slate-500 font-semibold'>by <span class='text-black'>{{book.author.name}}</span> </h3>
-          <h4 class='mb-6 text-lg text-slate-500 font-semibold'> Published_@ {{book.publication_date}}></h4>
+          <h1 class='mb-4 text-2xl font-bold'>{{book.title}}</h1>
+          <h3 class='mb-4 text-xl text-slate-500 font-semibold'>by <span class='text-black'>{{book.author.name}}</span> </h3>
+          <h4 class='mb-4 text-lg text-slate-500 font-semibold'>{{book.publication_date}}</h4>
           <h4 class="font-bold text-xl">
           
                   {% for genre in book.genre.all %}
-                      <span class="text-sky bg-cyan-200 rounded-md text-small mx-1">
+                      <span class="text-sky bg-cyan-200 rounded-md text-xs px-1 mx-1">
                           {{ genre.name }}
                       </span>
                   {% endfor %}
