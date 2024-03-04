@@ -43,7 +43,12 @@
     style="scrollbar-width:none;" !important
 >
     <nav class="px-6 py-6 flex justify-between items-center border-b border-gray-200">
-        <a href="{%url 'library:index'  %}" class="text-xl font-semibold">L.M.S</a>
+        <a href="{%url 'library:index'  %}" class="flex flex-row justify-items-center items-center text-3xl font-semibold grow-animate">
+            <span>Book</span>
+            <span class='mr-1 text-cyan-400'>Stack</span>
+            {% load static %}
+            <img src="{% static 'stack.svg' %}" class="w-[70px] h-[70px] grow-animate">
+        </a>
         <div class="space-x-6">
            
         </div>
