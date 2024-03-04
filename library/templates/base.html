@@ -65,13 +65,17 @@
         .text-shadow {
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
           }
+        .shadow-bottom {
+            box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2); /* horizontal offset, vertical offset, blur radius, color */
+        }
+        
       </style>
      
 </head>
 <body
     style="scrollbar-width:none;" 
 >
-    <nav class="px-6 py-6 flex justify-between items-center border-b border-gray-200">
+    <nav class="px-6 py-6 flex justify-between items-center border-b border-gray-200 shadow-bottom">
         <a href="{%url 'library:index'  %}" class="flex flex-row justify-items-center items-center text-3xl font-semibold grow-animate">
             <span>Book</span>
             <span class='mr-1 text-cyan-400'>Stack</span>
