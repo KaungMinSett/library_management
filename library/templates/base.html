@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
-    <title>{% block title %}{% endblock %} | LMS</title>
+    <title>{% block title %}{% endblock %} | BookStack</title>
     <style>
         /* Custom CSS for the animation */
         @keyframes grow {
@@ -28,16 +28,38 @@
                 transform: scale(1);
               }
         }
+        @keyframes appear {
+              0% {
+                opacity: 0;
+              }
+              25% {
+                opacity: 0.25;
+              }
+              50% {
+                opacity: 0.5;
+              }
+              75% {
+                opacity: 0.75;
+              }
+              100% {
+                opacity: 1;
+              }
+             
+        }
         
       
         /* Apply animation to the text */
         .grow-animate {
-          animation: grow 1s ease-out;
+          animation: grow 0.8s ease-out;
         }
+        .appear-animate {
+            animation: appear 0.8s ease-out;
+          }
         .text-shadow {
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
           }
       </style>
+     
 </head>
 <body
     style="scrollbar-width:none;" !important
@@ -83,6 +105,17 @@
                 </li>
             </ul>
         </div>
+        <script>
+            // JavaScript to handle dropdown behavior
+            
+            document.getElementById('dropdown-btn').addEventListener('click', function() {
+                console.log("clicked");
+                var dropdownMenu = document.getElementById('dropdown-menu');
+                dropdownMenu.classList.toggle('hidden'); // Toggle visibility
+            });
+        
+          
+        </script>
     </footer>
 </body>
 </html>

@@ -49,12 +49,18 @@ def index(request):
     query = request.GET.get('query','')
     genre_id = request.GET.get('genre_id',0)
     genres = Genre.objects.all();
+    action_drama = Book.objects.filter(Q(genre__name__icontains='Action') | Q(genre__name__icontains='Drama')).distinct()
+    mystery_thriller = Book.objects.filter(Q(genre__name__icontains='Mystery') | Q(genre__name__icontains='Thriller')).distinct()
+    fantasy_adventure = Book.objects.filter(Q(genre__name__icontains='Fantasy') | Q(genre__name__icontains='Adventure')).distinct()
 
+    # fantasy_adventure = Book.objects.filter(Q(genre__name__icontains='Fantasy') | Q(genre__name__icontains='Adventure')).distinct()
     popular_books = Book.objects.annotate(num_borrowed=Count('record')).order_by('-num_borrowed')[:10]
     latest_books = Book.objects.order_by('-publication_date')[:10]
-    print(popular_books)
     return HttpResponse(template.render({'latest_books':latest_books,
                                          'popular_books':popular_books,
+                                         'action_drama':action_drama,
+                                         'mystery_thriller':mystery_thriller,
+                                        #  'fantasy_adventure':fantasy_adventure,
                                          'genres':genres,"query":query,"genre_id":int(genre_id)},request))
 
 

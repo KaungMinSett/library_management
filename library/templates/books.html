@@ -16,38 +16,28 @@
   </div>
  </div>
 </div>
-<div class='grid grid-cols-6 gap-5 mt-4'>
-  <div class='col-span-5'>
+<div class='grid grid-cols-6 gap-5 mt-4 items-center'>
+  <div class='col-span-2 flex justify-items-center items-center'>
+    <span class='text-cyan-400 text-3xl font-bold'>All the available books  </span>
+  </div>
+  <div class='col-span-3'>
     <form method="GET" action="{% url 'library:search' 1 %}" class='flex gap-5'>
-      <input name='query' class="flex-1 px-6 py-4 border rounded-xl" type='text' value="{{ query }}" placeholder="Find a book name , author or ..." />
-      <button type='submit' class='py-3 px-6 mt-2 text-lg text-white bg-teal-500 hover:bg-teal-700 rounded-xl w-[120px]'> Search </button>
+      <input name='query' class="flex-1 px-6 py-4 border rounded-xl" type='text' value="{{ query }}" placeholder="Title , author ..." />
+      <div>
+        <h5 class='text-cyan-600'>Genres</h5>
+          <select name="genre">
+              <option value="">All</option>
+              {% for genre in genres %}
+                  <option value="{{ genre.id }}">{{ genre.name }}</option>
+              {% endfor %}
+          </select>
+        </div>
+      <button type='submit' class='py-3 px-6  text-lg text-white bg-teal-500 hover:bg-teal-700 rounded-xl h[100%] w-[120px]'> Search </button>
     </form>
   </div>
- 
-  <div class='col-span-1 font-semibold'>
-    <h5 class='text-cyan-600'>Genres</h5>
-    <p>
-      {% for genre in genres %}
-          {% if genre.id == genre_id %} 
-              
-                  <a href="{% url 'library:search' 1 %}?query={{query}}&genre_id={{genre.id}}"><span class='bg-blue-200 rounded p-1 hover:bg-blue-350'>{{genre.name}}<span></a>
-              
-          {% else %}
-                  <a class='bg-cyan-100 hover:bg-cyan-300' href="{% url 'library:search' 1 %}?query={{query}}&genre_id={{genre.id}}">{{genre.name}}</a>
-              
-          {% endif %}
-      {% endfor%}
-      
-        <a href="{% url 'library:search' 1 %}" 
-            class='mt-2 py-1 px-2 bg-yellow-500 text-lg inline-block rounded-xl text-white hover:text-black'
-        >Clear Filters</a>
-    
-    </p>
-</div>
-  
 </div>
 
-
+{% if popular_books %}
 <h1 class='mt-4 font-bold text-start text-3xl'>Popular Books</h1>
 
 <div class='my-3 flex flex-row gap-4 overflow-x-scroll'
@@ -57,6 +47,47 @@ style='scrollbar-width:none'
 
     
 {% for book in popular_books %}
+<a class="min-w-[60vw] sm:min-w-[30vw] md:min-w-[26vw] lg:min-w-[16vw] border border-indigo-300 rounded-2xl hover:shadow-xl hover:shadow-indigo-80 flex flex-col items-start appear-animate"
+    href={%url 'library:book_detail' book.id %}>
+    <img src={{'https://fakeimg.pl/667x1000/cc6600'}} class="shadow rounded-lg overflow-hidden  w-full max-h-[270px]" >
+    <div class="my-4 mx-4 ">
+        <div class='mx-5 '>
+          <h1 class='mb-4 text-2xl font-bold'>{{book.title}}</h1>
+          <h3 class='mb-4 text-xl text-slate-500 font-semibold'>by <span class='text-black'>{{book.author.name}}</span> </h3>
+          <h4 class='mb-4 text-lg text-slate-500 font-semibold'>{{book.publication_date}}</h4>
+          <h4 class="font-bold text-xl">
+          
+                  {% for genre in book.genre.all %}
+                      <span class="text-sky bg-cyan-200 rounded-md text-xs px-1 mx-1">
+                          {{ genre.name }}
+                      </span>
+                  {% endfor %}
+              
+          </h4>
+          
+          
+        </div>
+        
+        {% comment %} <div class="mt-5">
+            <button type="button" class="inline-flex items-center rounded-md border border-transparent bg-gray-800 px-3 py-2 text-sm font-medium leading-4 text-white shadow-sm hover:bg-gray-900">Add to bucket</button>
+        </div> {% endcomment %}
+    </div>
+</a>
+   
+{% endfor%}
+
+</div>
+{% endif %}
+{%if fantasy_adventure %}
+<h1 class='mt-4 font-bold text-start text-3xl'>Fantasy & Adventure</h1>
+
+<div class='my-3 flex flex-row gap-4 overflow-x-scroll'
+style='scrollbar-width:none'
+
+>
+
+    
+{% for book in fantasy_adventure %}
 <a class="min-w-[60vw] sm:min-w-[30vw] md:min-w-[26vw] lg:min-w-[16vw] border border-indigo-300 rounded-2xl hover:shadow-xl hover:shadow-indigo-80 flex flex-col items-start"
     href={%url 'library:book_detail' book.id %}>
     <img src={{'https://fakeimg.pl/667x1000/cc6600'}} class="shadow rounded-lg overflow-hidden  w-full max-h-[270px]" >
@@ -87,9 +118,37 @@ style='scrollbar-width:none'
 {% endfor%}
 
 </div>
+{% endif %}
+{% if action_drama %}
 
+<h1 class='mt-4 font-bold text-start text-3xl'>Action & Drama</h1>
+<div class='my-3 flex flex-row gap-4 overflow-x-scroll' style='scrollbar-width:none'>
 
-<h1 class='font-bold text-start text-3xl'>Latest Books </h1>
+  {% for book in action_drama %}
+  <a class="min-w-[60vw] sm:min-w-[30vw] md:min-w-[26vw] lg:min-w-[16vw] border border-indigo-300 rounded-2xl hover:shadow-xl hover:shadow-indigo-80 flex flex-col items-start book-card"
+      href={%url 'library:book_detail' book.id %}>
+      <img src={{'https://fakeimg.pl/667x1000/cc6600'}} class="shadow rounded-lg overflow-hidden  w-full max-h-[270px]" >
+      <div class="my-4 mx-4 ">
+          <div class='mx-5 '>
+            <h1 class='mb-4 text-2xl font-bold'>{{book.title}}</h1>
+            <h3 class='mb-4 text-xl text-slate-500 font-semibold'>by <span class='text-black'>{{book.author.name}}</span> </h3>
+            <h4 class='mb-4 text-lg text-slate-500 font-semibold'>{{book.publication_date}}</h4>
+            <h4 class="font-bold text-xl">
+                {% for genre in book.genre.all %}
+                    <span class="text-sky bg-cyan-200 rounded-md text-xs px-1 mx-1">
+                        {{ genre.name }}
+                    </span>
+                {% endfor %}
+            </h4>
+          </div>
+      </div>
+  </a>
+  {% endfor %}
+  
+  </div>
+{% endif %}
+{% if mystery_thriller %}
+<h1 class='mt-4 font-bold text-start text-3xl'>Mystery & Thriller</h1>
 
 <div class='my-3 flex flex-row gap-4 overflow-x-scroll'
 style='scrollbar-width:none'
@@ -97,25 +156,19 @@ style='scrollbar-width:none'
 >
 
     
-{% for book in latest_books %}
-<a class="min-w-[60vw] sm:min-w-[35vw] md:min-w-[30vw] lg:min-w-[20vw] border border-indigo-300 rounded-2xl hover:shadow-xl hover:shadow-indigo-80 flex flex-col items-start"
+{% for book in mystery_thriller %}
+<a class="min-w-[60vw] sm:min-w-[30vw] md:min-w-[26vw] lg:min-w-[16vw] border border-indigo-300 rounded-2xl hover:shadow-xl hover:shadow-indigo-80 flex flex-col items-start"
     href={%url 'library:book_detail' book.id %}>
-    {% if book.image_url %}
-    <img src="{{book.image_url.url}}" class="shadow rounded-lg overflow-hidden  w-full max-h-[350px]" >
-    {% else %}
-    <img src={{'https://fakeimg.pl/667x1000/cc6600'}} class="shadow rounded-lg overflow-hidden  w-full max-h-[350px]" >
-
-    {% endif %}
+    <img src={{'https://fakeimg.pl/667x1000/cc6600'}} class="shadow rounded-lg overflow-hidden  w-full max-h-[270px]" >
     <div class="my-4 mx-4 ">
-        
         <div class='mx-5 '>
-          <h1 class='mb-6 text-2xl font-bold'>{{book.title}}{{MEDIA_ROOT}}</h1>
-          <h3 class='mb-6 text-xl text-slate-500 font-semibold'>by <span class='text-black'>{{book.author.name}}</span> </h3>
-          <h4 class='mb-6 text-lg text-slate-500 font-semibold'> Published_@ {{book.publication_date}}></h4>
+          <h1 class='mb-4 text-2xl font-bold'>{{book.title}}</h1>
+          <h3 class='mb-4 text-xl text-slate-500 font-semibold'>by <span class='text-black'>{{book.author.name}}</span> </h3>
+          <h4 class='mb-4 text-lg text-slate-500 font-semibold'>{{book.publication_date}}</h4>
           <h4 class="font-bold text-xl">
           
                   {% for genre in book.genre.all %}
-                      <span class="text-black bg-cyan-200 rounded-md text-small mx-1">
+                      <span class="text-sky bg-cyan-200 rounded-md text-xs px-1 mx-1">
                           {{ genre.name }}
                       </span>
                   {% endfor %}
@@ -123,38 +176,19 @@ style='scrollbar-width:none'
           </h4>
           
           
-         </div>
-       
+        </div>
+        
+        {% comment %} <div class="mt-5">
+            <button type="button" class="inline-flex items-center rounded-md border border-transparent bg-gray-800 px-3 py-2 text-sm font-medium leading-4 text-white shadow-sm hover:bg-gray-900">Add to bucket</button>
+        </div> {% endcomment %}
     </div>
 </a>
    
 {% endfor%}
 
 </div>
-<nav aria-label="Page navigation " class='flex justify-center items-center'>
-    <ul class="list-style-none flex">
-        {% if books.has_previous %}
-          <li>
-            <a class="relative block rounded-full  px-3 py-1.5 text-sm text-black transition-all duration-300 dark:hover:bg-neutral-700 dark:hover:text-white"
-                href="{% url 'books:search' books.previous_page_number %}"
-              >Previous</a>
-          </li>
-        {% endif %}
-      
-      <li>
-        <a
-          class="relative block rounded-full bg-transparent px-3 py-1.5 text-sm text-neutral-600 transition-all duration-300 hover:bg-neutral-100  text-black dark:hover:bg-neutral-700 dark:hover:text-white"
-          href=""
-          >{{books.number}}</a
-        >
-      </li>
-      {% if books.has_next %}
-      <li>
-        <a
-          class="relative block rounded-full  px-3 py-1.5 text-sm text-black transition-all duration-300 hover:bg-neutral-100  dark:hover:bg-neutral-700 dark:hover:text-white"
-          href="{% url 'books:search' books.next_page_number %}">Next</a>
-      </li>
-        {% endif %}
-      
-    </ul>
+{% endif %}
+
+
+
 {% endblock %}
