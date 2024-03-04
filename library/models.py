@@ -65,12 +65,6 @@ class Record(models.Model):
         
 
     def save(self, *args, **kwargs):
-        print("<<<<<< Record created")
-        if self.returned == True :
-            print("Returned ")
-            self.book.count += self.count  # Increment count when returned
-        else:
-            self.book.count -= self.count  # Decrement count when borrowed
         self.book.save()  # Save the Book instance with updated count
         super().save(*args, **kwargs)  # Call the original save method
 

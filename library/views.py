@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.template import loader
-from .models import Book,Genre
+from .models import Book,Genre,Record
 
 # Create your views here.
 from django.shortcuts import render
@@ -16,7 +16,8 @@ from django.db.models.functions import Cast,TruncDate
 
 def book_detail(request, pk):
     book = Book.objects.get(id=pk)
-
+    unreturned_count = Record.objects.filter(book=pk,returned=False).count()
+    book.stock = book.count-unreturned_count
     return render(request, 'book_detail.html', {'book': book,"colors":['amber','sky','cyan','yellow','green'],
 })
 
